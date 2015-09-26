@@ -1,6 +1,6 @@
 {
   "name": "@rdcl/gulp-client-assets",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Tools for building client side assets with Gulp.",
   "main": "index.js",
   "scripts": {
@@ -17,9 +17,22 @@
     "url": "https://github.com/rudiculous/gulp-client-assets/issues"
   },
   "homepage": "https://github.com/rudiculous/gulp-client-assets#readme",
+  "dependencies": {
+    "gulp-coffee": "^2.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-if": "^1.2.5",
+    "gulp-less": "^3.0.3",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.4.1",
+    "gulp-util": "^3.0.6",
+    "gulp-watch": "^4.3.5",
+    "less-plugin-clean-css": "^1.5.1",
+    "through2": "^2.0.0"
+  },
   "devDependencies": {
     "chai": "^3.3.0",
     "coveralls": "^2.11.4",
+    "gulp": "^3.9.0",
     "istanbul": "^0.3.21",
     "mocha": "^2.3.3"
   }
