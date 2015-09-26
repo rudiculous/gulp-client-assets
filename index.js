@@ -74,7 +74,7 @@ function setup(gulp, dest, options) {
     let cssTasks = setupCss(gulp, options.css, gulp.dest(dest))
     gulp.task('build:css', cssTasks)
     buildTasks.push('build:css')
-    freezeTasks.push('build:js')
+    freezeTasks.push('build:css')
   }
 
   if (options.freeze != null) {
