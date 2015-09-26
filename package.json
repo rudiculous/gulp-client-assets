@@ -1,6 +1,6 @@
 {
   "name": "@rdcl/gulp-client-assets",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Tools for building client side assets with Gulp.",
   "main": "index.js",
   "scripts": {
