@@ -112,7 +112,7 @@ function setupJs(gulp, js, dest) {
     gulp.task(task, function () {
       return gulp.src(js[file])
         .pipe(gulpif(
-          isCoffee,
+          file => file.path.match(/\.(coffee(\.md)?|litcoffee)$/),
           coffee().on('error', gutil.log)
         ))
         .pipe(concat(file))
@@ -122,10 +122,6 @@ function setupJs(gulp, js, dest) {
   }
 
   return jsTasks
-}
-
-function isCoffee(file) {
-  return path.extname(file.path) === '.coffee'
 }
 
 function setupCss(gulp, css, dest) {
