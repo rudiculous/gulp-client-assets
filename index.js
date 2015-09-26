@@ -64,14 +64,14 @@ function setup(gulp, dest, options) {
   let watchTasks = []
 
   if (options.js != null) {
-    let jsTasks = setupJs(gulp, options.js, gulp.dest(dest))
+    let jsTasks = setupJs(gulp, options.js, dest)
     gulp.task('build:js', jsTasks)
     buildTasks.push('build:js')
     freezeTasks.push('build:js')
   }
 
   if (options.css != null) {
-    let cssTasks = setupCss(gulp, options.css, gulp.dest(dest))
+    let cssTasks = setupCss(gulp, options.css, dest)
     gulp.task('build:css', cssTasks)
     buildTasks.push('build:css')
     freezeTasks.push('build:css')
@@ -117,7 +117,7 @@ function setupJs(gulp, js, dest) {
         ))
         .pipe(concat(file))
         .pipe(uglify())
-        .pipe(dest)
+        .pipe(gulp.dest(dest))
     })
   }
 
@@ -142,7 +142,7 @@ function setupCss(gulp, css, dest) {
             cleancss,
           ],
         }))
-        .pipe(dest)
+        .pipe(gulp.dest(dest))
     })
   }
 
