@@ -59,27 +59,29 @@ function setup(gulp, dest, options) {
     options = {}
   }
 
-  let gulpDest = gulp.dest(dest)
   let buildTasks = []
+  let freezeTasks = []
   let watchTasks = []
 
   if (options.js != null) {
-    let jsTasks = setupJs(gulp, options.js, gulpDest)
+    let jsTasks = setupJs(gulp, options.js, gulp.dest(dest))
     gulp.task('build:js', jsTasks)
     buildTasks.push('build:js')
+    freezeTasks.push('build:js')
   }
 
   if (options.css != null) {
-    let cssTasks = setupCss(gulp, options.css, gulpDest)
+    let cssTasks = setupCss(gulp, options.css, gulp.dest(dest))
     gulp.task('build:css', cssTasks)
     buildTasks.push('build:css')
+    freezeTasks.push('build:js')
   }
 
   if (options.freeze != null) {
-    gulp.task('build:production', ['build:js', 'build:css'], function () {
+    gulp.task('build:production', freezeTasks, function () {
       return gulp.src(options.freeze)
         .pipe(freeze(path.join(dest, 'manifest.json')))
-        .pipe(gulpDest)
+        .pipe(gulp.dest(dest))
     })
     buildTasks.push('build:production')
   }
