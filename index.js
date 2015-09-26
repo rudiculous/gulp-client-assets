@@ -59,7 +59,7 @@ function setup(gulp, dest, options) {
     options = {}
   }
 
-  let gulpDest = gulp.dest(options.dest)
+  let gulpDest = gulp.dest(dest)
   let buildTasks = []
   let watchTasks = []
 
