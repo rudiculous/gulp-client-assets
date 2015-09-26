@@ -1,0 +1,26 @@
+{
+  "name": "@rdcl/gulp-client-assets",
+  "version": "1.0.0",
+  "description": "Tools for building client side assets with Gulp.",
+  "main": "index.js",
+  "scripts": {
+    "cover": "istanbul cover _mocha -- -R spec test/*",
+    "test": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rudiculous/gulp-client-assets.git"
+  },
+  "author": "RJ van der Weide <rj@rdcl.nl> (https://rdcl.nl/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rudiculous/gulp-client-assets/issues"
+  },
+  "homepage": "https://github.com/rudiculous/gulp-client-assets#readme",
+  "devDependencies": {
+    "chai": "^3.3.0",
+    "coveralls": "^2.11.4",
+    "istanbul": "^0.3.21",
+    "mocha": "^2.3.3"
+  }
+}
