@@ -1,4 +1,4 @@
-# @rdcl/array-transform ChangeLog
+# @rdcl/gulp-client-assets ChangeLog
 
 ## 2015-09-27, Version 2.0.0
 
