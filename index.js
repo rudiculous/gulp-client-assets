@@ -35,6 +35,11 @@ exports.setup = setup
  * @param {String} dest      Where the built assets should be placed.
  * @param {Object} [options] Additional configuration.
  *
+ * @param {String} [options.buildName] The base name for the build task.
+ *                                     (defaults to build:client}.
+ * @param {String} [options.watchName] The base name for the watch task.
+ *                                     (defaults to watch:client).
+ *
  * @param {Object} [options.js]     A map of javascripts to be built.
  * @param {Object} [options.css]    A map of stylesheets to be built.
  * @param {Array}  [options.freeze] A list of files that should be
@@ -59,54 +64,72 @@ function setup(gulp, dest, options) {
     options = {}
   }
 
+  let buildName = options.buildName == null
+    ? 'build:client'
+    : options.buildName
+
+  let watchName = options.watchName == null
+    ? 'watch:client'
+    : options.watchName
+
   let buildTasks = []
   let freezeTasks = []
   let watchTasks = []
 
   if (options.js != null) {
-    let jsTasks = setupJs(gulp, options.js, dest)
-    gulp.task('build:js', jsTasks)
-    buildTasks.push('build:js')
-    freezeTasks.push('build:js')
+    let task = buildName + ':js'
+    let jsTasks = setupJs(gulp, task, options.js, dest)
+
+    gulp.task(task, jsTasks)
+    buildTasks.push(task)
+    freezeTasks.push(task)
   }
 
   if (options.css != null) {
-    let cssTasks = setupCss(gulp, options.css, dest)
-    gulp.task('build:css', cssTasks)
-    buildTasks.push('build:css')
-    freezeTasks.push('build:css')
+    let task = buildName + ':css'
+    let cssTasks = setupCss(gulp, task, options.css, dest)
+
+    gulp.task(task, cssTasks)
+    buildTasks.push(task)
+    freezeTasks.push(task)
   }
 
   if (options.freeze != null) {
-    gulp.task('build:production', freezeTasks, function () {
+    let task = buildName + ':production'
+
+    gulp.task(task, freezeTasks, function () {
       return gulp.src(options.freeze)
         .pipe(freeze(path.join(dest, 'manifest.json')))
         .pipe(gulp.dest(dest))
     })
-    buildTasks.push('build:production')
+    buildTasks.push(task)
   }
 
   if (options.watch != null) {
     if (options.watch.js != null) {
-      addWatcher(gulp, 'watch:js', options.watch.js, 'build:js')
-      watchTasks.push('watch:js')
+      let task = watchName + ':js'
+
+      addWatcher(gulp, task, options.watch.js, buildName + ':js')
+      watchTasks.push(task)
     }
 
     if (options.watch.css != null) {
-      addWatcher(gulp, 'watch:css', options.watch.css, 'build:css')
-      watchTasks.push('watch:css')
+      let task = watchName + ':css'
+
+      addWatcher(gulp, task, options.watch.css, buildName + ':css')
+      watchTasks.push(task)
     }
   }
 
-  gulp.task('build', buildTasks)
-  gulp.task('watch', watchTasks)
+  gulp.task(buildName, buildTasks)
+  gulp.task(watchName, watchTasks)
 }
 
-function setupJs(gulp, js, dest) {
+function setupJs(gulp, parentTask, js, dest) {
   let jsTasks = []
 
   for (let file of Object.keys(js)) {
-    let task = 'build:js:' + file
+    let task = parentTask + ':' + file
     jsTasks.push(task)
 
     gulp.task(task, function () {
@@ -124,11 +147,11 @@ function setupJs(gulp, js, dest) {
   return jsTasks
 }
 
-function setupCss(gulp, css, dest) {
+function setupCss(gulp, parentTask, css, dest) {
   let cssTasks = []
 
   for (let file of Object.keys(css)) {
-    let task = 'build:css:' + file
+    let task = parentTask + ':' + file
     cssTasks.push(task)
 
     gulp.task(task, function () {
