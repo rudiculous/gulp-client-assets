@@ -1,5 +1,11 @@
 # @rdcl/gulp-client-assets ChangeLog
 
+## 2015-10-06, Version 2.0.1
+
+https://github.com/rudiculous/gulp-client-assets/commit/3a72672564a6549f7a06a6cfb6426f6653eccdb2
+
+Upgraded dependencies to latest version.
+
 ## 2015-09-27, Version 2.0.0
 
 https://github.com/rudiculous/gulp-client-assets/commit/962cdbf3e6622c1543bf0d08786edcc89d309a10
