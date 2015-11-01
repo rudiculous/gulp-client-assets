@@ -23,6 +23,7 @@ Where:
 Currently the following options are supported:
 * *options.buildName* - The base name to use for the `build task`. Defaults to `build:client`. Subtasks are appended to the base name, e.g. `build:client:js` or `build:client:css:main.css`.
 * *options.watchName* - The base name to use for the `watch task`. Defaults to `watch:client`.
+* *options.renameMinifiedJS* - Should minified JavaScript files be renamed to .min.js? Defaults to `false`. If `false`, the file itself is minified. Remember to add the minified files to your freeze (if you are using this functionality)!
 * *options.js* - A mapping of JavaScript files that should be built.
 * *options.css* - A mapping of stylesheets that should be built.
 * *options.freeze* - A list of files that should be frozen to a manifest (useful for production, see the explanation below).

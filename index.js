@@ -78,7 +78,7 @@ function setup(gulp, dest, options) {
 
   if (options.js != null) {
     let task = buildName + ':js'
-    let jsTasks = setupJs(gulp, task, options.js, dest)
+    let jsTasks = setupJs(gulp, task, options.js, dest, options.renameMinifiedJS)
 
     gulp.task(task, jsTasks)
     buildTasks.push(task)
@@ -125,7 +125,7 @@ function setup(gulp, dest, options) {
   gulp.task(watchName, watchTasks)
 }
 
-function setupJs(gulp, parentTask, js, dest) {
+function setupJs(gulp, parentTask, js, dest, renameMinifiedFile) {
   let jsTasks = []
 
   for (let file of Object.keys(js)) {
@@ -133,14 +133,24 @@ function setupJs(gulp, parentTask, js, dest) {
     jsTasks.push(task)
 
     gulp.task(task, function () {
-      return gulp.src(js[file])
+      let obj = gulp.src(js[file])
         .pipe(gulpif(
           file => file.path.match(/\.(coffee(\.md)?|litcoffee)$/),
           coffee().on('error', gutil.log)
         ))
         .pipe(concat(file))
+
+      if (renameMinifiedFile) {
+        obj = obj
+          .pipe(gulp.dest(dest))
+          .pipe(rename(path => path.basename += '.min'))
+      }
+
+      obj = obj
         .pipe(uglify())
         .pipe(gulp.dest(dest))
+
+      return obj
     })
   }
 
