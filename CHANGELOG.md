@@ -1,5 +1,11 @@
 # @rdcl/gulp-client-assets ChangeLog
 
+## 2015-11-01, Version 2.1.0
+
+https://github.com/rudiculous/gulp-client-assets/commit/599541f38b10ea314af99cd3cf8cb8728ae95548
+
+Added option to rename minified JS files to .min.js.
+
 ## 2015-10-06, Version 2.0.1
 
 https://github.com/rudiculous/gulp-client-assets/commit/3a72672564a6549f7a06a6cfb6426f6653eccdb2
