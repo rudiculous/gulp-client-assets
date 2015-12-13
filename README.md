@@ -30,6 +30,12 @@ Currently the following options are supported:
 * *options.watch.js* - A glob pattern of locations that should be watched for changes. The task `build:js` is executed when changes are detected.
 * *options.watch.css* - A glob pattern of locations that should be watched for changes. The task `build:css` is executed when changes are detected.
 
+The following languages are supported:
+* Plain JavaScript.
+* Plain CSS.
+* Coffeescript (both regular and literate).
+* React JSX and CJSX.
+
 ## Freezing files
 Since static files (such as CSS and JavaScript) usually rarely change, these are often served so that they are cached in the browser for a long time. The downside of this is that, if you do make changes, browsers may not realize this. When you use the option `freeze`, the files listed will be frozen into a manifest. That is, for each of these files a hash (currently sha1) is computed. A new files is then made which has the hash in the name. Additionally, a file named `manifest.json` is added in the build directory containing information on which files to use. This file might look like this (indented for readability):
 ```json

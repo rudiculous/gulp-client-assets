@@ -5,8 +5,10 @@ const path = require('path')
 const gulpif = require('gulp-if')
 const gutil = require('gulp-util')
 const watch = require('gulp-watch')
+const cjsx = require('gulp-cjsx')
 const concat = require('gulp-concat')
 const coffee = require('gulp-coffee')
+const jsx = require('gulp-react')
 const less = require('gulp-less')
 const rename = require('gulp-rename')
 const uglify = require('gulp-uglify')
@@ -137,6 +139,14 @@ function setupJs(gulp, parentTask, js, dest, renameMinifiedFile) {
         .pipe(gulpif(
           file => file.path.match(/\.(coffee(\.md)?|litcoffee)$/),
           coffee().on('error', gutil.log)
+        ))
+        .pipe(gulpif(
+          file => file.path.match(/\.jsx$/),
+          jsx().on('error', gutil.log)
+        ))
+        .pipe(gulpif(
+          file => file.path.match(/\.cjsx$/),
+          cjsx().on('error', gutil.log)
         ))
         .pipe(concat(file))
 
