@@ -37,6 +37,10 @@ exports.setup = setup
  * @param {String} dest      Where the built assets should be placed.
  * @param {Object} [options] Additional configuration.
  *
+ * @param {Boolean} [options.minifyJS] Should we minify JavaScript
+ *                                     files? (defaults to true).
+ * @param {Boolean} [options.renameMinifiedJS]
+ *
  * @param {String} [options.buildName] The base name for the build task.
  *                                     (defaults to build:client}.
  * @param {String} [options.watchName] The base name for the watch task.
@@ -74,13 +78,17 @@ function setup(gulp, dest, options) {
     ? 'watch:client'
     : options.watchName
 
+  let minifyJS = options.minifyJS == null
+    ? true
+    : options.minifyJS
+
   let buildTasks = []
   let freezeTasks = []
   let watchTasks = []
 
   if (options.js != null) {
     let task = buildName + ':js'
-    let jsTasks = setupJs(gulp, task, options.js, dest, options.renameMinifiedJS)
+    let jsTasks = setupJs(gulp, task, options.js, dest, minifyJS, options.renameMinifiedJS)
 
     gulp.task(task, jsTasks)
     buildTasks.push(task)
@@ -127,7 +135,7 @@ function setup(gulp, dest, options) {
   gulp.task(watchName, watchTasks)
 }
 
-function setupJs(gulp, parentTask, js, dest, renameMinifiedFile) {
+function setupJs(gulp, parentTask, js, dest, minifyJS, renameMinifiedFile) {
   let jsTasks = []
 
   for (let file of Object.keys(js)) {
@@ -150,14 +158,18 @@ function setupJs(gulp, parentTask, js, dest, renameMinifiedFile) {
         ))
         .pipe(concat(file))
 
-      if (renameMinifiedFile) {
+      if (minifyJS) {
+        if (renameMinifiedFile) {
+          obj = obj
+            .pipe(gulp.dest(dest))
+            .pipe(rename(path => path.basename += '.min'))
+        }
+
         obj = obj
-          .pipe(gulp.dest(dest))
-          .pipe(rename(path => path.basename += '.min'))
+          .pipe(uglify())
       }
 
       obj = obj
-        .pipe(uglify())
         .pipe(gulp.dest(dest))
 
       return obj
