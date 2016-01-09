@@ -1,5 +1,17 @@
 # @rdcl/gulp-client-assets ChangeLog
 
+## 2016-01-01, Version 2.3.0
+
+https://github.com/rudiculous/gulp-client-assets/commit/2e1552b50ccd29e1435894dba2edd0a367ab6a80
+
+Made minifying JS files optional.
+
+## 2015-12-13, Version 2.2.0
+
+https://github.com/rudiculous/gulp-client-assets/commit/48b17d2e1110c71aeff9a93c01310d7f6eb858c3
+
+Added support for JSX and CJSX.
+
 ## 2015-11-01, Version 2.1.0
 
 https://github.com/rudiculous/gulp-client-assets/commit/599541f38b10ea314af99cd3cf8cb8728ae95548
